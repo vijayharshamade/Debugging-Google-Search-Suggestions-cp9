@@ -25,3 +25,6 @@ const SuggestionItem = props => {
     </li>
   )
 }
+
+// FIX7: The component should be exported before using it in other components
+export default SuggestionItem
