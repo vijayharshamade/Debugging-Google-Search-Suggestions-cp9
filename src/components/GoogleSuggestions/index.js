@@ -1,3 +1,6 @@
+// FIX1: The React Component class needs to be imported before using it
+import {Component} from 'react'
+
 import SuggestionItem from '../SuggestionItem'
 
 import './index.css'
@@ -8,20 +11,24 @@ class GoogleSuggestions extends Component {
   }
 
   updateSearchInput = value => {
-    this.setState(
+    // FIX2: The setState() object syntax should be as the below statement
+    this.setState({
       searchInput: value,
-    )
+    })
   }
 
-  onChangeSearchInput = e => {
+  // FIX3: The function receives event as argument and it should be used inside the function
+  onChangeSearchInput = event => {
     this.setState({
       searchInput: event.target.value,
     })
   }
 
   render() {
-    const {searchInput} = this.props
-    const {suggestionsList} = this.state
+    // FIX4: searchInput should be accessed from the state
+    const {searchInput} = this.state
+    // FIX5: suggestionsList is received from props
+    const {suggestionsList} = this.props
     const searchResults = suggestionsList.filter(eachSuggestion =>
       eachSuggestion.suggestion
         .toLowerCase()
@@ -52,8 +59,9 @@ class GoogleSuggestions extends Component {
               />
             </div>
             <ul className="suggestions-list">
+              {/* FIX6: The component name should start with capital letter */}
               {searchResults.map(eachSuggestion => (
-                <suggestionItem
+                <SuggestionItem
                   key={eachSuggestion.id}
                   suggestionDetails={eachSuggestion}
                   updateSearchInput={this.updateSearchInput}
